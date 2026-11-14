@@ -37,3 +37,43 @@ export interface QuizQuestion {
   correctIndex: number;
   explanation: string;
 }
+
+export type AnimeGameMode = 'emoji' | 'anime' | 'character';
+
+export interface AnimeQuestionItem {
+  id?: number | string;
+  emoji?: string;
+  answer?: string;
+  title?: string;
+  name?: string;
+  correct?: string;
+  image?: string;
+  options: string[];
+}
+
+export interface AnimeCharacterItem {
+  id?: number | string;
+  name: string;
+  anime?: string;
+  image: string;
+  options: string[];
+}
+
+export interface AnimeGuessData {
+  questions?: AnimeQuestionItem[];
+  characters?: AnimeCharacterItem[];
+}
+
+export type LeaderboardGameId = 'anime-guess' | 'mini-game';
+
+export interface LeaderboardEntry {
+  id: string;
+  playerName: string;
+  game: LeaderboardGameId;
+  mode?: AnimeGameMode;
+  score: number;
+  detail: string;
+  createdAt: number;
+}
+
+

@@ -14,8 +14,11 @@ import {
   Skull,
   Flame,
   ShieldAlert,
+  Check,
 } from 'lucide-react';
 import { sound } from '../utils/audio';
+import { addLeaderboardEntry, getSavedPlayerName } from '../utils/leaderboard';
+import { LeaderboardCard } from './LeaderboardCard';
 
 interface Entity {
   x: number;
@@ -85,6 +88,9 @@ export const MiniGame: React.FC = () => {
   const [bossActive, setBossActive] = useState<boolean>(false);
   const [bossHp, setBossHp] = useState<number>(100);
   const [bossMaxHp, setBossMaxHp] = useState<number>(100);
+  const [playerName, setPlayerName] = useState<string>(() => getSavedPlayerName());
+  const [scoreSaved, setScoreSaved] = useState<boolean>(false);
+  const [showLeaderboard, setShowLeaderboard] = useState<boolean>(false);
 
   const keysRef = useRef<{ left: boolean; right: boolean; jump: boolean }>({
     left: false,
@@ -177,8 +183,22 @@ export const MiniGame: React.FC = () => {
     setBossHp(0);
     setDevTitle(getRank(0));
     setGameOver(false);
+    setScoreSaved(false);
     setIsPlaying(true);
     sound.playLevelUp();
+  };
+
+  const handleSaveMiniScore = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (scoreSaved || score <= 0) return;
+    sound.playCollect();
+    addLeaderboardEntry({
+      playerName: playerName.trim() || 'Тоглогч',
+      game: 'mini-game',
+      score,
+      detail: devTitle,
+    });
+    setScoreSaved(true);
   };
 
   const triggerBoss = (force = false) => {
@@ -988,14 +1008,14 @@ export const MiniGame: React.FC = () => {
   }, [isPlaying, gameOver, highScore, devTitle]);
 
   return (
-    <div className="vesper-card p-4 sm:p-6 my-6 sm:my-8 w-full">
+    <div className="vesper-card p-4 sm:p-6 w-full max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-white/10">
         <div className="flex items-center gap-2.5 sm:gap-3">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center text-white shrink-0">
             <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
           <div>
-            <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white flex items-center gap-2 m-0">
+            <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white flex flex-wrap items-center gap-2 m-0">
               Зоригтын Мини Тоглоом
               <span className="text-[10px] sm:text-[11px] bg-white/10 text-white font-mono px-1.5 py-0.5 rounded border border-white/15">
                 v1.1 TS • Boss Fight
@@ -1098,6 +1118,38 @@ export const MiniGame: React.FC = () => {
         )}
       </div>
 
+      {/* Save MiniGame score to Leaderboard on Game Over */}
+      {gameOver && score > 0 && (
+        <div className="mt-3 p-3 rounded-xl bg-white/[0.04] border border-white/15 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+          {!scoreSaved ? (
+            <form onSubmit={handleSaveMiniScore} className="w-full flex flex-col sm:flex-row items-center gap-2">
+              <span className="text-xs text-neutral-300 whitespace-nowrap shrink-0">
+                🏆 {score} оноог хадгалах:
+              </span>
+              <input
+                type="text"
+                maxLength={24}
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+                placeholder="Таны нэр"
+                className="w-full sm:flex-1 h-9 px-3 rounded-lg bg-black/60 border border-white/15 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:border-white/40"
+              />
+              <button
+                type="submit"
+                className="w-full sm:w-auto btn btn-solid h-9 px-4 text-xs font-semibold shrink-0"
+              >
+                Лидерборд-д хадгалах
+              </button>
+            </form>
+          ) : (
+            <div className="w-full flex items-center justify-center gap-2 text-xs font-semibold text-emerald-400 py-1">
+              <Check className="w-4 h-4" />
+              <span>Лидерборд-д амжилттай хадгалагдлаа!</span>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Touch controls for mobile */}
       <div className="mt-3 flex items-center justify-between gap-3 md:hidden select-none">
         <div className="flex gap-2">
@@ -1173,14 +1225,34 @@ export const MiniGame: React.FC = () => {
           <span className="text-neutral-300">Мангасын толгой дээр үсэрч устга (-25 HP)</span>
         </div>
 
-        <button
-          onClick={() => setShowCode(!showCode)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 text-neutral-200 transition-colors border border-white/15 text-xs font-mono cursor-pointer"
-        >
-          <Terminal className="w-3.5 h-3.5" />
-          {showCode ? 'Код нуух' : 'TypeScript код харах'}
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              sound.playClick();
+              setShowLeaderboard((prev) => !prev);
+            }}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 text-neutral-200 transition-colors border border-white/15 text-xs font-medium cursor-pointer"
+          >
+            <Trophy className="w-3.5 h-3.5 text-amber-300" />
+            {showLeaderboard ? 'Лидерборд нуух' : 'Лидерборд'}
+          </button>
+
+          <button
+            onClick={() => setShowCode(!showCode)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 text-neutral-200 transition-colors border border-white/15 text-xs font-mono cursor-pointer"
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            {showCode ? 'Код нуух' : 'TypeScript код харах'}
+          </button>
+        </div>
       </div>
+
+      {showLeaderboard && (
+        <div className="mt-4">
+          <LeaderboardCard compact defaultGameFilter="mini-game" />
+        </div>
+      )}
 
       {showCode && (
         <div className="mt-4 p-4 bg-black/90 rounded-xl border border-white/15 font-mono text-xs text-neutral-300 overflow-x-auto">

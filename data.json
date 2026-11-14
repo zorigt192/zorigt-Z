@@ -1,0 +1,83 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "emoji": "🏴‍☠️👒🍖",
+      "answer": "One Piece",
+      "image": "/src/assets/images/anime_one_piece_1794628425156.jpg",
+      "options": ["One Piece", "Naruto", "Bleach", "Fairy Tail"]
+    },
+    {
+      "id": 2,
+      "emoji": "🍥🦊🍜",
+      "answer": "Naruto",
+      "image": "/src/assets/images/anime_naruto_1794628426054.jpg",
+      "options": ["Naruto", "One Piece", "Hunter x Hunter", "Boruto"]
+    },
+    {
+      "id": 3,
+      "emoji": "🧱⚔️🕊️",
+      "answer": "Attack on Titan",
+      "image": "/src/assets/images/anime_attack_titan_1794628426533.jpg",
+      "options": ["Attack on Titan", "Vinland Saga", "Demon Slayer", "Berserk"]
+    },
+    {
+      "id": 4,
+      "emoji": "⚔️🌊🔥",
+      "answer": "Demon Slayer",
+      "image": "/src/assets/images/anime_demon_slayer_1794628426996.jpg",
+      "options": ["Demon Slayer", "Jujutsu Kaisen", "Bleach", "Samurai Champloo"]
+    },
+    {
+      "id": 5,
+      "emoji": "🐉🟠⚡",
+      "answer": "Dragon Ball",
+      "image": "/src/assets/images/anime_dragon_ball_1794628426671.jpg",
+      "options": ["Dragon Ball", "One Punch Man", "My Hero Academia", "Yu Yu Hakusho"]
+    },
+    {
+      "id": 6,
+      "emoji": "🏮🐉🛁",
+      "answer": "Spirited Away",
+      "image": "/src/assets/images/anime_spirited_away_1794628426705.jpg",
+      "options": ["Spirited Away", "Howl's Moving Castle", "Your Name", "My Neighbor Totoro"]
+    },
+    {
+      "id": 7,
+      "emoji": "📓🍎⚖️",
+      "answer": "Death Note",
+      "image": "",
+      "options": ["Death Note", "Code Geass", "Monster", "Tokyo Ghoul"]
+    },
+    {
+      "id": 8,
+      "emoji": "🤞👁️💀",
+      "answer": "Jujutsu Kaisen",
+      "image": "",
+      "options": ["Jujutsu Kaisen", "Chainsaw Man", "Mob Psycho 100", "Bleach"]
+    }
+  ],
+  "characters": [
+    {
+      "id": 1,
+      "name": "Luffy",
+      "anime": "One Piece",
+      "image": "/src/assets/images/char_luffy_1794628428059.jpg",
+      "options": ["Luffy", "Zoro", "Naruto", "Goku"]
+    },
+    {
+      "id": 2,
+      "name": "Naruto",
+      "anime": "Naruto",
+      "image": "/src/assets/images/char_naruto_1794628427977.jpg",
+      "options": ["Naruto", "Sasuke", "Luffy", "Goku"]
+    },
+    {
+      "id": 3,
+      "name": "Goku",
+      "anime": "Dragon Ball",
+      "image": "/src/assets/images/char_goku_1794628428294.jpg",
+      "options": ["Goku", "Vegeta", "Luffy", "Naruto"]
+    }
+  ]
+}

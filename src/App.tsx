@@ -20,11 +20,11 @@ import {
   X,
   Menu,
 } from 'lucide-react';
-import { MiniGame } from './components/MiniGame';
 import { SkillsTracker } from './components/SkillsTracker';
 import { PlanTimeline } from './components/PlanTimeline';
 import { GameIdeaGenerator } from './components/GameIdeaGenerator';
-import { GameDevQuiz } from './components/GameDevQuiz';
+import { GamesSection } from './components/GamesSection';
+import gamedevSetupImg from './assets/images/gamedev_intro_setup_1794628770514.jpg';
 import { sound } from './utils/audio';
 
 export default function App() {
@@ -136,7 +136,8 @@ export default function App() {
             <nav className="flex flex-col gap-2.5 mt-6">
               {[
                 { label: 'Нүүр', href: '#top' },
-                { label: '🕹️ Мини тоглоом', href: '#minigame' },
+                { label: '🚀 Танилцуулга', href: '#intro' },
+                { label: '🎮 Тоглоомууд', href: '#games' },
                 { label: '⚡ Ур чадвар & Төлөвлөгөө', href: '#skills' },
                 { label: '🤝 Яагаад энэ ажил вэ?', href: '#reason' },
                 { label: '💡 Санаа зохиох', href: '#studio' },
@@ -170,7 +171,7 @@ export default function App() {
             </div>
 
             <a
-              href="#minigame"
+              href="#games"
               onClick={() => {
                 closeMenu();
                 sound.playClick();
@@ -220,41 +221,41 @@ export default function App() {
         {/* Center: Nav links (Desktop) */}
         <nav id="site-nav" aria-label="Primary">
           <a
-            href="#top"
+            href="#intro"
             className="appear appear--scale"
             style={{ ['--d' as string]: '0.16s' }}
             onClick={() => sound.playClick()}
           >
-            Нүүр
+            Танилцуулга
           </a>
           <a
-            href="#minigame"
+            href="#games"
             className="appear appear--soft"
-            style={{ ['--d' as string]: '0.28s' }}
+            style={{ ['--d' as string]: '0.24s' }}
             onClick={() => sound.playClick()}
           >
-            Мини тоглоом
+            Тоглоомууд
           </a>
           <a
             href="#skills"
             className="appear appear--scale"
-            style={{ ['--d' as string]: '0.40s' }}
+            style={{ ['--d' as string]: '0.32s' }}
             onClick={() => sound.playClick()}
           >
-            Ур чадвар & Төлөвлөгөө
+            Ур чадвар
           </a>
           <a
             href="#reason"
             className="appear appear--soft"
-            style={{ ['--d' as string]: '0.52s' }}
+            style={{ ['--d' as string]: '0.40s' }}
             onClick={() => sound.playClick()}
           >
-            Яагаад энэ ажил вэ?
+            Яагаад энэ ажил?
           </a>
           <a
             href="#studio"
             className="appear appear--soft"
-            style={{ ['--d' as string]: '0.60s' }}
+            style={{ ['--d' as string]: '0.48s' }}
             onClick={() => sound.playClick()}
           >
             Санаа зохиох
@@ -272,7 +273,7 @@ export default function App() {
           </button>
 
           <a
-            href="#minigame"
+            href="#games"
             onClick={() => sound.playClick()}
             className="btn btn-solid header-cta appear appear--scale hidden sm:inline-flex text-xs font-semibold px-4 h-9"
             style={{ ['--d' as string]: '0.34s' }}
@@ -343,12 +344,12 @@ export default function App() {
         {/* Action buttons (Centered) */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto px-4 mx-auto">
           <a
-            href="#minigame"
+            href="#games"
             onClick={() => sound.playClick()}
             className="w-full sm:w-auto btn btn-solid text-xs sm:text-sm font-semibold h-11 px-6 flex items-center justify-center"
             style={{ ['--d' as string]: '0.96s' }}
           >
-            <Play className="w-4 h-4 mr-2 fill-current" /> Мини тоглоом тоглох
+            <Play className="w-4 h-4 mr-2 fill-current" /> Тоглоомууд тоглох
           </a>
           <a
             href="#skills"
@@ -376,12 +377,12 @@ export default function App() {
               >
                 <defs>
                   <linearGradient id="pill-grad-left" x1="3" y1="2" x2="14" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38" />
-                    <stop offset="100%" stop-color="#3a3a3a" stop-opacity="0.62" />
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.38" />
+                    <stop offset="100%" stopColor="#3a3a3a" stopOpacity="0.62" />
                   </linearGradient>
                   <linearGradient id="pill-grad-right" x1="3" y1="2" x2="14" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#3a3a3a" stop-opacity="0.38" />
-                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.62" />
+                    <stop offset="0%" stopColor="#3a3a3a" stopOpacity="0.38" />
+                    <stop offset="100%" stopColor="#ffffff" stopOpacity="0.62" />
                   </linearGradient>
                 </defs>
                 <rect x="3.4" y="2.6" width="7.2" height="18.8" rx="3.6" fill="url(#pill-grad-left)" />
@@ -473,8 +474,9 @@ export default function App() {
           {/* Centered preview image */}
           <div className="w-full max-w-md relative group rounded-2xl overflow-hidden border border-white/15 bg-black/50 shadow-2xl mb-6 mx-auto">
             <img
-              src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80"
-              alt="Компьютер тоглоом хөгжүүлж буй хүн"
+              src={gamedevSetupImg}
+              alt="Компьютер тоглоом хөгжүүлж буй ажлын орчин"
+              referrerPolicy="no-referrer"
               className="w-full h-[200px] sm:h-[240px] object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 flex items-center justify-between text-xs font-mono">
@@ -502,10 +504,8 @@ export default function App() {
           </div>
         </section>
 
-        {/* PLAYABLE MINI-GAME */}
-        <section id="minigame" className="w-full scroll-mt-20">
-          <MiniGame />
-        </section>
+        {/* GAMES SHOWCASE SECTION */}
+        <GamesSection />
 
         {/* SKILLS & PLANS GRID */}
         <section id="skills" className="w-full scroll-mt-20">
@@ -581,11 +581,6 @@ export default function App() {
         {/* GAME IDEA GENERATOR STUDIO */}
         <section id="studio" className="w-full scroll-mt-20">
           <GameIdeaGenerator />
-        </section>
-
-        {/* GAME DEV QUIZ */}
-        <section className="w-full">
-          <GameDevQuiz />
         </section>
       </div>
 
