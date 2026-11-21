@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Gamepad2, Play } from 'lucide-react';
 import { AnimeGuessGame } from './AnimeGuessGame';
 import { MiniGame } from './MiniGame';
-import { IframeGamePlayer } from './IframeGamePlayer';
+import { VibeFighterGame } from './VibeFighterGame';
 import animeGuessCover from '../assets/images/anime_guess_cover_1794628425142.jpg';
 import minigameCover from '../assets/images/minigame_cover_1794629639469.jpg';
 import vibeFighterCover from '../assets/images/vibe_fighter_cover_1795273531904.jpg';
@@ -38,10 +38,7 @@ export const PORTFOLIO_GAMES: PortfolioGame[] = [
     image: vibeFighterCover,
     wideModal: true,
     render: () => (
-      <IframeGamePlayer
-        title="Vibe Fighter (2D Retro Fighting Game)"
-        url="https://ais-pre-o4c27fhwicne72sxdipgqw-943642533778.asia-east1.run.app/?shell=game"
-      />
+      <VibeFighterGame externalUrl="https://ais-pre-o4c27fhwicne72sxdipgqw-943642533778.asia-east1.run.app/?shell=game" />
     ),
   },
 ];

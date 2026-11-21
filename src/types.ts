@@ -64,7 +64,7 @@ export interface AnimeGuessData {
   characters?: AnimeCharacterItem[];
 }
 
-export type LeaderboardGameId = 'anime-guess' | 'mini-game';
+export type LeaderboardGameId = 'anime-guess' | 'mini-game' | 'vibe-fighter';
 
 export interface LeaderboardEntry {
   id: string;

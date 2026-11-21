@@ -130,6 +130,7 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
                 { id: 'all', label: 'Бүгд' },
                 { id: 'anime-guess', label: 'Anime Guess' },
                 { id: 'mini-game', label: 'Мини тоглоом' },
+                { id: 'vibe-fighter', label: 'Vibe Fighter' },
               ] as const
             ).map((tab) => (
               <button
@@ -138,7 +139,7 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
                 onClick={() => {
                   sound.playClick();
                   setGameFilter(tab.id);
-                  if (tab.id === 'mini-game') setModeFilter('all');
+                  if (tab.id !== 'anime-guess' && tab.id !== 'all') setModeFilter('all');
                 }}
                 className={`px-3 py-2 sm:py-1.5 rounded-md transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                   gameFilter === tab.id
@@ -152,7 +153,7 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
           </div>
         )}
 
-        {gameFilter !== 'mini-game' && (
+        {(gameFilter === 'all' || gameFilter === 'anime-guess') && (
           <div className="flex items-center gap-1 p-1 bg-white/5 rounded-lg border border-white/10 text-xs overflow-x-auto max-w-full">
             {(
               [
@@ -202,7 +203,12 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
       ) : (
         <div className="mt-4 divide-y divide-white/10 border border-white/10 rounded-xl overflow-hidden bg-black/40">
           {filteredEntries.map((entry, idx) => {
-            const gameName = entry.game === 'anime-guess' ? 'Anime Guess' : 'Мини тоглоом';
+            const gameName =
+              entry.game === 'anime-guess'
+                ? 'Anime Guess'
+                : entry.game === 'vibe-fighter'
+                ? 'Vibe Fighter'
+                : 'Мини тоглоом';
             const modeText = entry.mode ? MODE_LABELS[entry.mode] : null;
             return (
               <div
