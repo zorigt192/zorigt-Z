@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Gamepad2, Play } from 'lucide-react';
 import { AnimeGuessGame } from './AnimeGuessGame';
 import { MiniGame } from './MiniGame';
+import { IframeGamePlayer } from './IframeGamePlayer';
 import animeGuessCover from '../assets/images/anime_guess_cover_1794628425142.jpg';
 import minigameCover from '../assets/images/minigame_cover_1794629639469.jpg';
+import vibeFighterCover from '../assets/images/vibe_fighter_cover_1795273531904.jpg';
 import { sound } from '../utils/audio';
 
 export interface PortfolioGame {
   id: string;
   title: string;
+  description?: string;
   image: string;
+  wideModal?: boolean;
   render: () => React.ReactNode;
 }
 
@@ -26,6 +30,19 @@ export const PORTFOLIO_GAMES: PortfolioGame[] = [
     title: 'Зоригтын Мини Тоглоом',
     image: minigameCover,
     render: () => <MiniGame />,
+  },
+  {
+    id: 'vibe-fighter',
+    title: 'Vibe Fighter (2D Retro Fighting Game)',
+    description: '16-bit Pixel Art 2D тулааны тоглоом (1v1 болон 2v2 горимтой)',
+    image: vibeFighterCover,
+    wideModal: true,
+    render: () => (
+      <IframeGamePlayer
+        title="Vibe Fighter (2D Retro Fighting Game)"
+        url="https://ais-pre-o4c27fhwicne72sxdipgqw-943642533778.asia-east1.run.app/?shell=game"
+      />
+    ),
   },
 ];
 
@@ -109,15 +126,22 @@ export const GamesSection: React.FC = () => {
                 )}
               </div>
 
-              {/* Card Body: Name + Play button */}
-              <div className="p-4 sm:p-5 flex flex-col gap-3.5">
-                <h3 className="text-base sm:text-lg font-semibold text-white tracking-tight m-0">
-                  {game.title}
-                </h3>
+              {/* Card Body: Name + Description + Play button */}
+              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between gap-3.5">
+                <div className="space-y-1.5">
+                  <h3 className="text-base sm:text-lg font-semibold text-white tracking-tight m-0">
+                    {game.title}
+                  </h3>
+                  {game.description && (
+                    <p className="text-xs text-neutral-400 leading-relaxed m-0">
+                      {game.description}
+                    </p>
+                  )}
+                </div>
                 <button
                   type="button"
                   onClick={() => openGame(game.id)}
-                  className="btn btn-solid w-full h-11 text-sm font-semibold flex items-center justify-center gap-2"
+                  className="btn btn-solid w-full h-11 text-sm font-semibold flex items-center justify-center gap-2 mt-auto"
                 >
                   <Play className="w-4 h-4 fill-current" />
                   <span>Тоглох</span>
@@ -155,7 +179,11 @@ export const GamesSection: React.FC = () => {
           </div>
 
           {/* Modal Content */}
-          <div className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-5 sm:py-10 flex items-start sm:items-center justify-center">
+          <div
+            className={`flex-1 w-full mx-auto px-4 sm:px-6 py-5 sm:py-8 flex items-start sm:items-center justify-center ${
+              activeGame.wideModal ? 'max-w-[1186px]' : 'max-w-5xl'
+            }`}
+          >
             {activeGame.render()}
           </div>
         </div>
