@@ -34,7 +34,7 @@ export const PORTFOLIO_GAMES: PortfolioGame[] = [
   {
     id: 'vibe-fighter',
     title: 'Vibe Fighter (2D Retro Fighting Game)',
-    description: '16-bit Pixel Art 2D тулааны тоглоом (1v1 болон 2v2 горимтой)',
+    description: '16-bit Pixel Art 2D тулааны тоглоом (8 баатар, 4 дэвжээ, 1v1 ба 2v2)',
     image: vibeFighterCover,
     wideModal: true,
     render: () => (
